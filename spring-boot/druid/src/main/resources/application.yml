@@ -1,0 +1,21 @@
+server:
+  undertow:
+    threads:
+      io: 4 #设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+      worker: 32 #阻塞任务线程池, 当执行类似servlet请求阻塞IO操作, undertow会从这个线程池中取得线程
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  profiles:
+    active: ${PROFILES_ACTIVE:dev}
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: dev
+      password: dev123
+      url: jdbc:mysql://127.0.0.1:3306/dev?characterEncoding=utf-8
+      validation-query: 'select 1 + 1'
+      stat-view-servlet:
+        enabled: true
+logging:
+  config: classpath:./log4j2.xml
